@@ -1,0 +1,39 @@
+[
+  {
+    "userId": "1",
+    "date": "2021-01-01",
+    "waza":[
+      {
+        "id": 0,
+        "name": "Shomen Uchi Ikkyo",
+        "situation": "座技",
+        "kokyunage": false
+      },
+      {
+        "id": 1,
+        "name": "Shomen Uchi Nikyo",
+        "situation": "座技",
+        "kokyunage": false
+      },
+      {
+        "id": 2,
+        "name": "Shomen Uchi Sankyo",
+        "situation": "座技",
+        "kokyunage": false
+      },
+      {
+        "id": 3,
+        "name": "Shomen Uchi Yonkyo",
+        "situation": "座技",
+        "kokyunage": false
+      },
+      {
+        "id": 4,
+        "name": "Shomen Uchi Gokyo",
+        "situation": "座技",
+        "kokyunage": false
+      }
+    ],
+    "diary": "今日は合気道の稽古がありました。とても楽しかったです。"
+  }
+]

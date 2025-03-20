@@ -7,8 +7,14 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest",
-    "cdk": "cdk"
+    "test": "npx jest --clearCache && npx jest --coverage",
+    "snap": "npx jest --clearCache && npx jest --updateSnapshot",
+    "test.watch": "npx jest --watchAll --coverage",
+    "cdk": "cdk",
+    "fixlint": "npx eslint --fix --ext .ts ./**",
+    "checklint": "npx eslint .",
+    "clean": "find ./lib ./bin ./test -type d -name node_modules -prune -o \\( -type f \\( -name \"*.js\" -o -name \"*.d.ts\" \\) -print -exec rm -f {} + \\)",
+    "exec": "ts-node -r tsconfig-paths/register"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
@@ -22,7 +28,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.767.0",
     "@aws-sdk/util-dynamodb": "^3.767.0",
-    "aws-cdk-lib": "2.181.1",
+    "aws-cdk-lib": "^2.185.0",
     "constructs": "^10.0.0"
   }
 }

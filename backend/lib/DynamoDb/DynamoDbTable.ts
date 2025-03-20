@@ -1,7 +1,7 @@
 import { Construct } from "constructs"; // Constructクラスをインポート
-import { DynamoDbTableConfig } from "../../configs/txm.config.interface"; // DynamoDbTableConfigインターフェースをインポート
+import { DynamoDbTableConfig } from "../../configs/model"; // DynamoDbTableConfigインターフェースをインポート
 import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib"; // AWS CDKの基本クラスとプロパティをインポート
-import { BillingMode, Table } from "aws-cdk-lib/aws-dynamodb"; // DynamoDBのテーブルと課金モードをインポート
+import { BillingMode, Table, TableProps } from "aws-cdk-lib/aws-dynamodb"; // DynamoDBのテーブルと課金モードをインポート
 
 // DynamoDbTableStackPropsインターフェースを定義し、StackPropsを継承
 interface DynamoDbTableStackProps extends StackProps {
@@ -9,12 +9,14 @@ interface DynamoDbTableStackProps extends StackProps {
 }
 
 // DynamoDbTableConfigからテーブルのプロパティを取得する関数を定義
-const getTableProps = (config: DynamoDbTableConfig) => ({
+const getTableProps = (config: DynamoDbTableConfig): TableProps => ({
   tableName: config.tableName, // テーブル名を設定
   partitionKey: config.tableProps.partitionKey, // パーティションキーを設定
+  pointInTimeRecoverySpecification: {
+    pointInTimeRecoveryEnabled: false
+  }, // ポイントインタイムリカバリを無効に設定
   billingMode: BillingMode.PAY_PER_REQUEST, // 課金モードをオンデマンドに設定
   deletionProtection: false, // 削除保護を無効に設定
-  pointInTimeRecovery: false, // 時点復旧を無効に設定
   removalPolicy: RemovalPolicy.DESTROY, // 削除ポリシーをDESTROYに設定
 });
 

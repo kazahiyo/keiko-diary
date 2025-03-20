@@ -1,0 +1,178 @@
+[
+  {
+    "id": 0,
+    "nameJp": "正面打一教",
+    "ukeJp": "正面打",
+    "toriJp": "一教",
+    "name": "Shomen Uchi Ikkyo",
+    "uke": "Shomen Uchi",
+    "tori": "Ikkyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 1,
+    "nameJp": "正面打二教",
+    "ukeJp": "正面打",
+    "toriJp": "二教",
+    "name": "Shomen Uchi Nikyo",
+    "uke": "Shomen Uchi",
+    "tori": "Nikyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 2,
+    "nameJp": "正面打三教",
+    "ukeJp": "正面打",
+    "toriJp": "三教",
+    "name": "Shomen Uchi Sankyo",
+    "uke": "Shomen Uchi",
+    "tori": "Sankyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 3,
+    "nameJp": "正面打四教",
+    "ukeJp": "正面打",
+    "toriJp": "四教",
+    "name": "Shomen Uchi Yonkyo",
+    "uke": "Shomen Uchi",
+    "tori": "Yonkyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 4,
+    "nameJp": "正面打五教",
+    "ukeJp": "正面打",
+    "toriJp": "五教",
+    "name": "Shomen Uchi Gokyo",
+    "uke": "Shomen Uchi",
+    "tori": "Gokyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 5,
+    "nameJp": "正面打入身投げ",
+    "ukeJp": "正面打",
+    "toriJp": "入身投げ",
+    "name": "Shomen Uchi Iriminage",
+    "uke": "Shomen Uchi",
+    "tori": "Iriminage",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 6,
+    "nameJp": "正面打小手返し",
+    "ukeJp": "正面打",
+    "toriJp": "小手返し",
+    "name": "Shomen Uchi Kotegaeshi",
+    "uke": "Shomen Uchi",
+    "tori": "Kotegaeshi",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 7,
+    "nameJp": "正面打四方投げ",
+    "ukeJp": "正面打",
+    "toriJp": "四方投げ",
+    "name": "Shomen Uchi Shihonage",
+    "uke": "Shomen Uchi",
+    "tori": "Shihonage",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 8,
+    "nameJp": "横面打一教",
+    "ukeJp": "横面打",
+    "toriJp": "一教",
+    "name": "Yokomen Uchi Ikkyo",
+    "uke": "Yokomen Uchi",
+    "tori": "Ikkyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 9,
+    "nameJp": "横面打二教",
+    "ukeJp": "横面打",
+    "toriJp": "二教",
+    "name": "Yokomen Uchi Nikyo",
+    "uke": "Yokomen Uchi",
+    "tori": "Nikyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 10,
+    "nameJp": "横面打三教",
+    "ukeJp": "横面打",
+    "toriJp": "三教",
+    "name": "Yokomen Uchi Sankyo",
+    "uke": "Yokomen Uchi",
+    "tori": "Sankyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 11,
+    "nameJp": "横面打四教",
+    "ukeJp": "横面打",
+    "toriJp": "四教",
+    "name": "Yokomen Uchi Yonkyo",
+    "uke": "Yokomen Uchi",
+    "tori": "Yonkyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 12,
+    "nameJp": "横面打五教",
+    "ukeJp": "横面打",
+    "toriJp": "五教",
+    "name": "Yokomen Uchi Gokyo",
+    "uke": "Yokomen Uchi",
+    "tori": "Gokyo",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 13,
+    "nameJp": "横面打入身投げ",
+    "ukeJp": "横面打",
+    "toriJp": "入身投げ",
+    "name": "Yokomen Uchi Iriminage",
+    "uke": "Yokomen Uchi",
+    "tori": "Iriminage",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 14,
+    "nameJp": "横面打小手返し",
+    "ukeJp": "横面打",
+    "toriJp": "小手返し",
+    "name": "Yokomen Uchi Kotegaeshi",
+    "uke": "Yokomen Uchi",
+    "tori": "Kotegaeshi",
+    "situation": "座技",
+    "kokyunage": false
+  },
+  {
+    "id": 15,
+    "nameJp": "横面打四方投げ",
+    "ukeJp": "横面打",
+    "toriJp": "四方投げ",
+    "name": "Yokomen Uchi Shihonage",
+    "uke": "Yokomen Uchi",
+    "tori": "Shihonage",
+    "situation": "座技",
+    "kokyunage": false
+  }
+]

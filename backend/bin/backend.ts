@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib'; // AWS CDKライブラリをインポート
-import dynamoDbConfig from '../configs/core/txm.dynamoDb.config'; // DynamoDBの設定をインポート
+import dynamoDbConfig from '../configs/dynamoDb.config'; // DynamoDBの設定をインポート
 import DynamoDbTableStack from '../lib/DynamoDb/DynamoDbTable'; // DynamoDbTableStackクラスをインポート
 import PutItemsFunctionStack from '../lib/DynamoDb/PutItemsFunction'; // PutItemsFunctionStackクラスをインポート
 

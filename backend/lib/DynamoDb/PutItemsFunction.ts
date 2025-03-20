@@ -9,7 +9,7 @@ import {
   PhysicalResourceId,
 } from "aws-cdk-lib/custom-resources"; // カスタムリソース関連のクラスをインポート
 import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib"; // AWS CDKの基本クラスとプロパティをインポート
-import { DynamoDbTableConfig } from "../../configs/txm.config.interface"; // DynamoDbTableConfigインターフェースをインポート
+import { DynamoDbTableConfig } from "../../configs/model"; // DynamoDbTableConfigインターフェースをインポート
 import { BatchWriteItemCommandInput } from "@aws-sdk/client-dynamodb"; // DynamoDBのBatchWriteItemCommandInputをインポート
 import { marshall } from "@aws-sdk/util-dynamodb"; // DynamoDBのmarshall関数をインポート
 
@@ -21,15 +21,19 @@ interface CustomResourceStackProps extends StackProps {
 // DynamoDbTableConfigからAWS SDKの呼び出し設定を取得する関数を定義
 function getAwsSdkCallOnCreate(config: DynamoDbTableConfig) {
   const parameters: BatchWriteItemCommandInput = { RequestItems: undefined }; // BatchWriteItemCommandInputの初期値を設定
-  if (config.initJsonFile) { // initJsonFileが設定されている場合
+  if (config.initJsonFile) {
+    // initJsonFileが設定されている場合
     parameters.RequestItems = {}; // RequestItemsを初期化
     const items = fs.readFileSync(config.initJsonFile, "utf8"); // JSONファイルを読み込む
     const records = JSON.parse(items) as Record<string, unknown>[]; // JSONをパースしてレコードの配列に変換
-    const marshalledRecords = marshall(records);
     parameters.RequestItems[config.tableName] = []; // テーブル名をキーにRequestItemsを初期化
-    for (const record of marshalledRecords) { // 各レコードに対して
-      const putRequest = { PutRequest: { Item: {} } }; // PutRequestを初期化
-      putRequest.PutRequest.Item = record; // レコードをPutRequestに設定
+    for (const record of records) {
+      // 各レコードに対して
+      const putRequest = {
+        PutRequest: {
+          Item: marshall(record, { removeUndefinedValues: true }),
+        },
+      }; // PutRequestを初期化し、marshall関数で変換
       parameters.RequestItems[config.tableName].push(putRequest); // RequestItemsにPutRequestを追加
     }
   }

@@ -5,26 +5,22 @@ import {
   LocalSecondaryIndexProps,
 } from "aws-cdk-lib/aws-dynamodb";
 import { join } from "path";
-import { DynamoDbTableConfig } from "../txm.config.interface";
+import { DynamoDbTableConfig } from "./model";
 
 const dynamoDbConfig: DynamoDbTableConfig[] = [
   {
     tableName: "Waza",
     tableProps: {
       partitionKey: {
-        name: "id",
+        name: "tori",
         type: AttributeType.STRING,
       },
       sortKey: {
         name: "uke",
         type: AttributeType.STRING,
-      }
+      },
     },
-    initJsonFile: join(
-      `${__dirname}`,
-      "../../",
-      "lib/DynamoDb/Waza.json"
-    ),
+    initJsonFile: join(`${__dirname}`, "../../", "backend/lib/DynamoDb/Waza.json"),
   },
   {
     tableName: "User",
@@ -36,13 +32,9 @@ const dynamoDbConfig: DynamoDbTableConfig[] = [
       sortKey: {
         name: "dojo",
         type: AttributeType.STRING,
-      }
+      },
     },
-    initJsonFile: join(
-      `${__dirname}`,
-      "../../",
-      "lib/DynamoDb/DummyUser.json"
-    ),
+    initJsonFile: join(`${__dirname}`, "../../", "backend/lib/DynamoDb/DummyUser.json"),
   },
   {
     tableName: "Diary",
@@ -59,7 +51,7 @@ const dynamoDbConfig: DynamoDbTableConfig[] = [
     initJsonFile: join(
       `${__dirname}`,
       "../../",
-      "lib/DynamoDb/DummyDiary.json"
+      "backend/lib/DynamoDb/DummyDiary.json"
     ),
   },
   {
@@ -70,11 +62,7 @@ const dynamoDbConfig: DynamoDbTableConfig[] = [
         type: AttributeType.STRING,
       },
     },
-    initJsonFile: join(
-      `${__dirname}`,
-      "../../",
-      "lib/DynamoDb/Dojo.json"
-    ),
+    initJsonFile: join(`${__dirname}`, "../../", "backend/lib/DynamoDb/Dojo.json"),
   },
 ];
 

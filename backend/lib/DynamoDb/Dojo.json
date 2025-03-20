@@ -1,0 +1,74 @@
+[
+  {
+    "dojoId": "d000000000001",
+    "dojoName": "Aikikai Hombu Dojo",
+    "dojoAddress": "17-18 Wakamatsu-cho, Shinjuku-ku, Tokyo",
+    "dojoNameJp": "合気会本部道場",
+    "dojoAddressJp": "東京都新宿区若松町17-18",
+    "dojoCityJp": "東京",
+    "dojoCountryJp": "日本",
+    "dojoPhone": "+81-3-3203-9236",
+    "Calender": [
+      {
+        "day": "Monday",
+        "time": "18:30-20:00",
+        "class": "General Class",
+        "instructor": "Yokota Toshiaki"
+      }
+    ]
+  },
+  {
+    "dojoId": "d000000000002",
+    "dojoName": "Aikido Ayukai",
+    "dojoAddress": "",
+    "dojoNameJp": "合気道愛結会",
+    "dojoAddressJp": "福井県越前市帆山町",
+    "dojoCityJp": "福井",
+    "dojoCountryJp": "日本",
+    "dojoPhone": "",
+    "Calender": [
+      {
+        "day": "Monday",
+        "time": "19:30-21:00",
+        "class": "General Class",
+        "instructor": "Nomura Naomi"
+      }
+    ]
+  },
+  {
+    "dojoId": "d000000000003",
+    "dojoName": "Aikido Sekishinjuku",
+    "dojoAddress": "",
+    "dojoNameJp": "合気道石芯塾",
+    "dojoAddressJp": "静岡県新富士市",
+    "dojoCityJp": "静岡",
+    "dojoCountryJp": "日本",
+    "dojoPhone": "",
+    "Calender": [
+      {
+        "day": "Monday",
+        "time": "19:30-21:00",
+        "class": "General Class",
+        "instructor": "Ishihara Katsuhiro"
+      }
+    ]
+  },
+  {
+    "dojoId": "d000000000004",
+    "dojoName": "Oumeikai KimoriDoujou",
+    "dojoAddress": "",
+    "dojoNameJp": "央名会 氣守道場",
+    "dojoAddressJp": "愛知県春日井市",
+    "dojoCityJp": "愛知",
+    "dojoCountryJp": "日本",
+    "dojoPhone": "",
+    "Calender": [
+      {
+        "day": "Sunday",
+        "time": "19:30-21:00",
+        "class": "General Class",
+        "instructor": "Sawada Toshiharu"
+      }
+    ]
+  }
+]
