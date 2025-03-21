@@ -3,6 +3,7 @@ import * as cdk from 'aws-cdk-lib'; // AWS CDKライブラリをインポート
 import dynamoDbConfig from '../configs/dynamoDb.config'; // DynamoDBの設定をインポート
 import DynamoDbTableStack from '../lib/DynamoDb/DynamoDbTable'; // DynamoDbTableStackクラスをインポート
 import PutItemsFunctionStack from '../lib/DynamoDb/PutItemsFunction'; // PutItemsFunctionStackクラスをインポート
+import { RustLambdaFunctionStack } from '../lib/api/userInfo/RustLambdaFunction';
 
 const app = new cdk.App(); // 新しいCDKアプリケーションを作成
 
@@ -25,3 +26,8 @@ for (const config of dynamoDbConfig) {
     );
   }
 }
+
+const rustLambdaFunctionStack = new RustLambdaFunctionStack(
+  app,
+  "RustLambdaFunctionStack"
+);

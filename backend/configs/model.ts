@@ -3,6 +3,8 @@ import {
   LocalSecondaryIndexProps,
   TableProps,
 } from "aws-cdk-lib/aws-dynamodb";
+import { PolicyStatementProps } from "aws-cdk-lib/aws-iam";
+import { FunctionProps } from "aws-cdk-lib/aws-lambda";
 
 export interface DynamoDbTableConfig {
   tableName: string;
@@ -11,4 +13,11 @@ export interface DynamoDbTableConfig {
   lsi?: LocalSecondaryIndexProps[];
   initJsonFile?: string | undefined;
   // initRecords?: { [key: string]: unknown }[];
+}
+
+export interface LambdaConfig {
+  functionName: string;
+  functionProps?: FunctionProps | undefined;
+  policyStatementProps?: PolicyStatementProps;
+  requieredLayerName: string[];
 }
