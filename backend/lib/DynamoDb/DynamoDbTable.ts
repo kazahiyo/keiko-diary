@@ -13,7 +13,7 @@ const getTableProps = (config: DynamoDbTableConfig): TableProps => ({
   tableName: config.tableName, // テーブル名を設定
   partitionKey: config.tableProps.partitionKey, // パーティションキーを設定
   pointInTimeRecoverySpecification: {
-    pointInTimeRecoveryEnabled: false
+    pointInTimeRecoveryEnabled: false,
   }, // ポイントインタイムリカバリを無効に設定
   billingMode: BillingMode.PAY_PER_REQUEST, // 課金モードをオンデマンドに設定
   deletionProtection: false, // 削除保護を無効に設定
