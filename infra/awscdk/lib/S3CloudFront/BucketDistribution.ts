@@ -4,18 +4,12 @@ import {
   Stack,
   StackProps,
 } from "aws-cdk-lib"; // AWS CDK の Stack クラスおよびスタックプロパティ型をインポート
-import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import { Certificate, ICertificate } from "aws-cdk-lib/aws-certificatemanager";
 import {
   Distribution,
   DistributionProps,
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
-import {
-  ARecord,
-  ARecordProps,
-  PublicHostedZone,
-  RecordTarget,
-} from "aws-cdk-lib/aws-route53";
 import {
   BlockPublicAccess,
   Bucket,
@@ -24,13 +18,10 @@ import {
 } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs"; // CDK の基本コンストラクトクラスをインポート
 import { HostConfig } from "../../configs/model";
-import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
-import { config } from "process";
 
-interface BucketDistributionARecordStackProps extends StackProps {
+interface BucketDistributionStackProps extends StackProps {
   readonly config: HostConfig;
-  readonly certificate: Certificate;
-  readonly publicHostedZone: PublicHostedZone;
+  readonly certificateArn: string;
 }
 
 const getBucketProps = (
@@ -48,9 +39,9 @@ const getBucketProps = (
  */
 
 const getDistributionProps = (
-  domainName: string,
+  domainNames: string[],
   bucket: Bucket,
-  certificate: Certificate
+  certificate: ICertificate
 ): DistributionProps => ({
   defaultRootObject: "index.html",
   defaultBehavior: {
@@ -59,30 +50,17 @@ const getDistributionProps = (
     viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
   },
   certificate,
-  domainNames: [domainName],
+  domainNames,
 });
 
-// ARecordリソース作成に必要なプロパティ(ARecordProps)を生成するヘルパー関数
-const getARecordProps = (
-  recordName: string, // レコード名を指定
-  publicHostedZone: PublicHostedZone,
-  distribution: Distribution // 対象のCloudFrontディストリビューションを指定
-): ARecordProps => ({
-  target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)), // CloudFrontディストリビューションをエイリアスターゲットとして設定
-  zone: publicHostedZone, // 対象のパブリックホストゾーンを指定
-  recordName, // レコード名をホストゾーンのドメイン名に設定
-  comment: `ARecord for ${distribution.domainName}`, // コメントを設定
-});
-
-export class BucketDistributionARecordStack extends Stack {
+export class BucketDistributionStack extends Stack {
   readonly bucket: Bucket; // 作成した S3 バケットリソースを保持するプロパティ
   readonly distribution: Distribution; // 作成した S3 バケットリソースを保持するプロパティ
-  readonly aRecord: ARecord; // 作成した A レコードリソースを保持するプロパティ
 
   constructor(
     scope: Construct, // このスタックの親コンストラクト
     id: string, // スタックの一意な識別子（CloudFormation の論理IDに影響）
-    props: BucketDistributionARecordStackProps // スタックに渡される追加プロパティ（特に S3 設定情報）
+    props: BucketDistributionStackProps // スタックに渡される追加プロパティ（特に S3 設定情報）
   ) {
     super(scope, id, props); // 親クラス Stack のコンストラクタを呼び出し
 
@@ -98,19 +76,7 @@ export class BucketDistributionARecordStack extends Stack {
 
     // CloudFormation で使用する論理IDを、バケット名から生成
     // 非英数字を削除し、続く文字を大文字化することで PascalCase 形式に変換
-    const bucketLogicalId = props.config.s3.bucket.bucketProps
-      .bucketName!.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase()) // キャプチャグループは必ず存在する前提
-      .replace(/^./, (m) => m.toUpperCase()); // 先頭文字を大文字化
-
-    // S3 バケットリソースを作成
-    // 第1引数: このスタックを親コンストラクトとして指定
-    // 第2引数: 生成した論理ID（CloudFormation 内で一意なリソース識別子）
-    // 第3引数: マージ済みの S3 バケットプロパティ
-    this.bucket = new Bucket(this, `S3Bucket-${bucketLogicalId}`, bucketProps);
-
-    // CloudFormation で使用する論理IDを、バケット名から生成
-    // 非英数字を削除し、続く文字を大文字化することで PascalCase 形式に変換
-    const distributionLogicalId = props.config.fqdn
+    const logicalId = props.config.fqdn
       .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase()) // キャプチャグループは必ず存在する前提
       .replace(/^./, (m) => m.toUpperCase()); // 先頭文字を大文字化
 
@@ -118,31 +84,27 @@ export class BucketDistributionARecordStack extends Stack {
     // 第1引数: このスタックを親コンストラクトとして指定
     // 第2引数: 生成した論理ID（CloudFormation 内で一意なリソース識別子）
     // 第3引数: マージ済みの S3 バケットプロパティ
+    this.bucket = new Bucket(this, `Bucket-${logicalId}`, bucketProps);
+
+    const iCertificate = Certificate.fromCertificateArn(
+      this,
+      `Certificate-${logicalId}`,
+      props.certificateArn
+    );
+
+    const domainNames: string[] = [
+      props.config.fqdn,
+      ...(props.config.altDomainNames || []), // サブドメイン名を追加
+    ];
+
+    // S3 バケットリソースを作成
+    // 第1引数: このスタックを親コンストラクトとして指定
+    // 第2引数: 生成した論理ID（CloudFormation 内で一意なリソース識別子）
+    // 第3引数: マージ済みの S3 バケットプロパティ
     this.distribution = new Distribution(
       this,
-      `Distribution-${distributionLogicalId}`,
-      getDistributionProps(props.config.fqdn, this.bucket, props.certificate)
-    );
-
-    const aRecordProps = getARecordProps(
-      props.config.fqdn,
-      props.publicHostedZone,
-      this.distribution
-    );
-
-    const aRecordLogicalId = props.publicHostedZone.zoneName
-      .replace(/\*/g, "Astr")
-      .replace(/[^a-zA-Z0-9]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""))
-      .replace(/^./, (m) => m.toUpperCase());
-
-    // ARecordリソースを作成
-    // ・第1引数: このスタックを親コンストラクトとして指定
-    // ・第2引数: 生成した論理ID（CloudFormation内で一意なリソース識別子）
-    // ・第3引数: 生成したARecordのプロパティ
-    this.aRecord = new ARecord(
-      this,
-      `ARecord-${aRecordLogicalId}`,
-      aRecordProps
+      `Distribution-${logicalId}`,
+      getDistributionProps(domainNames, this.bucket, iCertificate)
     );
   }
 }

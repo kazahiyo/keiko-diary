@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AcmCertificateStack matches the CloudFormation template snapshot 1`] = `
+exports[`AcmCertificateStack Synth 結果のテンプレートがスナップショットと一致する 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
@@ -10,21 +10,19 @@ exports[`AcmCertificateStack matches the CloudFormation template snapshot 1`] = 
     },
   },
   "Resources": {
-    "CertificateApiKeikoDiaryComB662D18B": {
+    "CertificateApiExampleComD8EBFB46": {
       "Properties": {
-        "DomainName": "api.keiko-diary.com",
+        "DomainName": "api.example.com",
         "DomainValidationOptions": [
           {
-            "DomainName": "api.keiko-diary.com",
-            "HostedZoneId": {
-              "Fn::ImportValue": "HostedZoneStack:ExportsOutputRefTestHostedZone68F306E4C7D85D20",
-            },
+            "DomainName": "api.example.com",
+            "HostedZoneId": "Z11111111111111",
           },
         ],
         "Tags": [
           {
             "Key": "Name",
-            "Value": "api.keiko-diary.com",
+            "Value": "api.example.com",
           },
         ],
         "ValidationMethod": "DNS",

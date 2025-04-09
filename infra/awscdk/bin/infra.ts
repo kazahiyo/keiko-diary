@@ -4,7 +4,11 @@ import { domainRecourceConfig } from "../configs/infra.config";
 import { Route53PublicHostedZoneStack } from "../lib/Route53/Rout53PublicHostedZone";
 import { AcmCertificateStack } from "../lib/ACM/AcmCertificate";
 import { DomainRecourceConfig } from "../configs/model";
-import { BucketDistributionARecordStack } from "../lib/S3CloudFrontRoute53/BucketDistributionARecord";
+import { BucketDistributionStack } from "../lib/S3CloudFront/BucketDistribution";
+import { PublicHostedZoneAttributes } from "aws-cdk-lib/aws-route53";
+import { S3BucketStack } from "../lib/S3/S3Bucket";
+import { CloudFrontDistribution } from "../lib/CloudFront/CloudFrontDistribution";
+import { Route53ARecordStack } from "../lib/Route53/Rout53ARecord";
 
 const checkConfig = (domainRecourceConfig: DomainRecourceConfig[]) => {
   for (const config of domainRecourceConfig) {
@@ -80,18 +84,16 @@ checkConfig(domainRecourceConfig);
 const app = new cdk.App();
 
 for (const config of domainRecourceConfig) {
-  // route53PublicHostedZoneStackを作成
-  let route53PublicHostedZoneStack: Route53PublicHostedZoneStack | undefined =
+  let publicHostedZoneAttributes: PublicHostedZoneAttributes | undefined =
     undefined;
-
-  let acmCertificateStack: AcmCertificateStack | undefined = undefined;
+  let certificateArn: string | undefined = undefined;
 
   if (
     config.route53?.publicHostedZone?.createReource ||
     config.acm.certificate.createReource ||
     config.hostConfig.some((hostConfig) => hostConfig.createReource)
   ) {
-    route53PublicHostedZoneStack = new Route53PublicHostedZoneStack(
+    const route53PublicHostedZoneStack = new Route53PublicHostedZoneStack(
       app,
       `Route53PublicHostedZone-${createValidStackName(config.domainName)}`,
       {
@@ -101,40 +103,67 @@ for (const config of domainRecourceConfig) {
       } // スタックのプロパティを設定
     );
 
+    publicHostedZoneAttributes = {
+      hostedZoneId: route53PublicHostedZoneStack.publicHostedZone.hostedZoneId,
+      zoneName: route53PublicHostedZoneStack.publicHostedZone.zoneName,
+    };
+
     if (
       config.acm.certificate.createReource ||
       config.hostConfig.some((hostConfig) => hostConfig.createReource)
     ) {
-      acmCertificateStack = new AcmCertificateStack(
+      const acmCertificateStack = new AcmCertificateStack(
         app,
         `AcmCertificate-${createValidStackName(config.domainName)}`, // スタックのIDを設定
         {
           config: config.acm.certificate.certificateProps,
-          publicHostedZone: route53PublicHostedZoneStack.publicHostedZone,
+          publicHostedZoneAttributes,
           env: { region: "us-east-1" },
           crossRegionReferences: true,
         } // スタックのプロパティを設定
       );
+      certificateArn = acmCertificateStack.certificate.certificateArn;
     }
   }
 
   for (const hostConfig of config.hostConfig) {
     if (
       hostConfig.createReource &&
-      acmCertificateStack &&
-      route53PublicHostedZoneStack
+      publicHostedZoneAttributes &&
+      certificateArn
     ) {
-      const bucketDistributionStack = new BucketDistributionARecordStack(
+      const S3CloudFrontStack = new BucketDistributionStack(
         app,
-        `S3CloudFrontRoute53-${createValidStackName(hostConfig.fqdn)}`, // スタックのIDを設定
+        `S3CloudFront-${createValidStackName(hostConfig.fqdn)}`, // スタックのIDを設定
         {
           config: hostConfig,
-          certificate: acmCertificateStack.certificate,
-          publicHostedZone: route53PublicHostedZoneStack.publicHostedZone,
-          env: { region: "ap-northeast-1" },
+          certificateArn,
           crossRegionReferences: true,
-        } // スタックのプロパティを設定
+          env: { region: "ap-northeast-1" },
+        }
       );
+
+      const recordNames: string[] = [
+        hostConfig.fqdn,
+        ...(hostConfig.altDomainNames || []),
+      ];
+
+      recordNames.forEach((recordName) => {
+        const aRecord = new Route53ARecordStack(
+          app,
+          `Route53ARecord-${createValidStackName(recordName)}`, // スタックのIDを設定
+          {
+            recordName,
+            env: { region: "us-east-1" },
+            publicHostedZoneAttributes,
+            crossRegionReferences: true,
+            distributionAttribute: {
+              distributionId: S3CloudFrontStack.distribution.distributionId,
+              domainName: S3CloudFrontStack.distribution.domainName,
+            },
+          } // スタックのプロパティを設定
+        );
+      });
     }
   }
 }

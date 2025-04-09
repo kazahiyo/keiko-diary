@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744015942214" clover="3.2.0">
-  <project timestamp="1744015942214" name="All files">
-    <metrics statements="53" coveredstatements="53" conditionals="6" coveredconditionals="6" methods="16" coveredmethods="16" elements="75" coveredelements="75" complexity="0" loc="53" ncloc="53" packages="3" files="3" classes="3"/>
+<coverage generated="1744126930481" clover="3.2.0">
+  <project timestamp="1744126930481" name="All files">
+    <metrics statements="45" coveredstatements="45" conditionals="4" coveredconditionals="4" methods="11" coveredmethods="11" elements="60" coveredelements="60" complexity="0" loc="45" ncloc="45" packages="3" files="3" classes="3"/>
     <package name="ACM">
-      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
       <file name="AcmCertificate.ts" path="/home/exszk/Git/keiko-diary/infra/awscdk/lib/ACM/AcmCertificate.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+        <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="20" count="6" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="31" count="6" type="stmt"/>
-        <line num="34" count="6" type="stmt"/>
-        <line num="40" count="6" type="stmt"/>
-        <line num="46" count="6" type="stmt"/>
-        <line num="48" count="17" type="cond" truecount="2" falsecount="0"/>
-        <line num="49" count="6" type="stmt"/>
-        <line num="52" count="6" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="36" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
       </file>
     </package>
     <package name="Route53">
@@ -39,38 +41,28 @@
         <line num="64" count="5" type="stmt"/>
       </file>
     </package>
-    <package name="S3CloudFrontRoute53">
-      <metrics statements="28" coveredstatements="28" conditionals="2" coveredconditionals="2" methods="9" coveredmethods="9"/>
-      <file name="BucketDistributionARecord.ts" path="/home/exszk/Git/keiko-diary/infra/awscdk/lib/S3CloudFrontRoute53/BucketDistributionARecord.ts">
-        <metrics statements="28" coveredstatements="28" conditionals="2" coveredconditionals="2" methods="9" coveredmethods="9"/>
+    <package name="S3CloudFront">
+      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <file name="BucketDistribution.ts" path="/home/exszk/Git/keiko-diary/infra/awscdk/lib/S3CloudFront/BucketDistribution.ts">
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="38" count="4" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="54" count="4" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="70" count="4" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="45" count="4" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="65" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="72" count="4" type="stmt"/>
+        <line num="79" count="4" type="stmt"/>
+        <line num="80" count="12" type="stmt"/>
+        <line num="81" count="4" type="stmt"/>
         <line num="87" count="4" type="stmt"/>
         <line num="89" count="4" type="stmt"/>
-        <line num="94" count="4" type="stmt"/>
-        <line num="101" count="4" type="stmt"/>
-        <line num="102" count="12" type="stmt"/>
-        <line num="103" count="4" type="stmt"/>
-        <line num="109" count="4" type="stmt"/>
-        <line num="113" count="4" type="stmt"/>
-        <line num="114" count="13" type="stmt"/>
-        <line num="115" count="4" type="stmt"/>
-        <line num="121" count="4" type="stmt"/>
-        <line num="127" count="4" type="stmt"/>
-        <line num="133" count="4" type="stmt"/>
-        <line num="135" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="136" count="4" type="stmt"/>
-        <line num="142" count="4" type="stmt"/>
+        <line num="99" count="4" type="stmt"/>
       </file>
     </package>
   </project>

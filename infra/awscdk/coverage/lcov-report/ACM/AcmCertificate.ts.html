@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -121,9 +121,15 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,7 +146,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,28 +157,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,7 +193,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { PublicHostedZone } from "aws-cdk-lib/aws-route53";
+import { IPublicHostedZone, PublicHostedZone, PublicHostedZoneAttributes } from "aws-cdk-lib/aws-route53";
 import {
   Certificate,
   CertificateProps,
@@ -191,17 +203,17 @@ import {
 // サブドメイン証明書用スタックのプロパティインターフェース
 export interface AcmCertificateProps extends StackProps {
   readonly config: CertificateProps;
-  readonly publicHostedZone: PublicHostedZone;
+  readonly publicHostedZoneAttributes: PublicHostedZoneAttributes;
 }
 &nbsp;
 // 証明書作成のためのデフォルトプロパティを生成するヘルパー関数
 const getAcmCertificateProps = (
   config: CertificateProps, // AcmCertificateConfig には subDomainName が定義されている前提
-  publicHostedZone: PublicHostedZone
+  iPublicHostedZone: IPublicHostedZone
 ): CertificateProps =&gt; ({
   domainName: config.domainName, // サブドメイン名を証明書対象とする
   certificateName: config.domainName, // 証明書の名前もサブドメイン名にする（必要に応じて変更）
-  validation: CertificateValidation.fromDns(publicHostedZone), // DNS検証を使用
+  validation: CertificateValidation.fromDns(iPublicHostedZone), // DNS検証を使用
 });
 &nbsp;
 // サブドメイン用の証明書を作成するスタック
@@ -211,10 +223,22 @@ export class AcmCertificateStack extends Stack {
   constructor(scope: Construct, id: string, props: AcmCertificateProps) {
     super(scope, id, props);
 &nbsp;
+    // 論理IDを、subDomainName から生成（例："api.keiko-diary.com" → "ApiKeikoDiaryCom"）
+    const logicalId = props.config.domainName
+      .replace(/\*/g, "Astr") // アスタリスク(*)を "Astr" に置換
+      .replace(/[^a-zA-Z0-9]+(.)?/g, (_, c) =&gt; (c ? c.toUpperCase() : "")) // 非英数字部分を削除し、直後の文字を大文字に
+      .replace(/^./, (m) =&gt; m.toUpperCase()); // 先頭文字を大文字化
+&nbsp;
+    const iPublicHostedZone = PublicHostedZone.fromHostedZoneAttributes(
+      this,
+      `PublicHostedZone-${logicalId}`,
+      props.publicHostedZoneAttributes
+    );
+&nbsp;
     // デフォルトの証明書プロパティを生成
     const defaultCertificateProps = getAcmCertificateProps(
       props.config,
-      props.publicHostedZone
+      iPublicHostedZone
     );
 &nbsp;
     // デフォルトのプロパティと、config内で追加・上書き指定されたプロパティをマージする
@@ -222,12 +246,6 @@ export class AcmCertificateStack extends Stack {
       ...defaultCertificateProps, // 生成されたデフォルト設定
       ...props.config, // 設定ファイルで上書き・追加された設定
     };
-&nbsp;
-    // 論理IDを、subDomainName から生成（例："api.keiko-diary.com" → "ApiKeikoDiaryCom"）
-    const logicalId = props.config.domainName
-      .replace(/\*/g, "Astr") // アスタリスク(*)を "Astr" に置換
-      .replace(/[^a-zA-Z0-9]+(.)?/g, (_, c) =&gt; (c ? c.toUpperCase() : "")) // 非英数字部分を削除し、直後の文字を大文字に
-      .replace(/^./, (m) =&gt; m.toUpperCase()); // 先頭文字を大文字化
 &nbsp;
     // 証明書リソースを作成
     this.certificate = new Certificate(
@@ -244,7 +262,7 @@ export class AcmCertificateStack extends Stack {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-07T08:52:22.206Z
+                at 2025-04-08T15:42:10.474Z
             </div>
         <script src="../prettify.js"></script>
         <script>

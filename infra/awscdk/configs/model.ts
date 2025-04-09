@@ -24,6 +24,7 @@ export interface DomainRecourceConfig {
 
 export interface HostConfig {
   fqdn: string;
+  altDomainNames?: string[];
   createReource: boolean;
   s3: {
     bucket: {
